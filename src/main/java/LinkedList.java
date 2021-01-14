@@ -33,4 +33,18 @@ public class LinkedList<T> {
         }
         size++;
     }
+
+    public void addLast(T data) {
+        if (size == 0) {
+            addFirst(data);
+        } else {
+            Node<T> node = new Node<T>(data);
+            node.setPrev(tail);
+            node.setNext(head);
+            tail.setNext(node);
+            head.setPrev(node);
+            tail = node;
+            size++;
+        }
+    }
 }
