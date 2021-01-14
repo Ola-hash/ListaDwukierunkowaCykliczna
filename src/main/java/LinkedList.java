@@ -14,4 +14,20 @@ public class LinkedList<T> {
     public int getSize() {
         return size;
     }
+
+    public void addFirst(T data) {
+        Node<T> node = new Node<T>(data);
+        if (size == 0) {
+            head = node;
+            tail = node;
+            node.setNext(head);
+            node.setPrev(tail);
+        } else {
+            Node<T> newNode = head;
+            head.setNext(node);
+
+        }
+        size++;
+    }
+
 }
