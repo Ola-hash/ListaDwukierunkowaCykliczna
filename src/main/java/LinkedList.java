@@ -20,14 +20,17 @@ public class LinkedList<T> {
         if (size == 0) {
             head = node;
             tail = node;
+            head.setNext(tail);
+            head.setPrev(tail);
+            tail.setNext(head);
+            tail.setPrev(head);
+        } else {
             node.setNext(head);
             node.setPrev(tail);
-        } else {
-            Node<T> newNode = head;
-            head.setNext(node);
-
+            tail.setNext(node);
+            head.setPrev(node);
+            head = node;
         }
         size++;
     }
-
 }
