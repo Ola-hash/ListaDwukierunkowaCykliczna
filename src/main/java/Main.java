@@ -1,11 +1,11 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LinkedListException {
         LinkedList<Integer> linkedList = new LinkedList<>();
-        linkedList.add(2, 0);
-        Node<Integer> node = linkedList.getHead();
-        linkedList.add(3, 1);
+        linkedList.addFirst(4);
+        linkedList.add(2, 1);
         linkedList.add(3, 2);
-
-        System.out.println(linkedList.getNode(2).getData());
+        linkedList.add(3, 3);
+        linkedList.add(5, 4);
+        System.out.println(linkedList.getTail().getData());
     }
 }

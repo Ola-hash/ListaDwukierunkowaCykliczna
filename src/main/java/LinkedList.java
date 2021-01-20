@@ -2,6 +2,7 @@ public class LinkedList<T> {
     private Node<T> head;
     private Node<T> tail;
     private int size;
+    private Node<T> node;
 
 
     public Node<T> getHead() {
@@ -69,9 +70,9 @@ public class LinkedList<T> {
         }
     }
 
-    public boolean remove(int index) {
+    public boolean remove(int index) throws LinkedListException {
         if (index > size - 1 && index < 0) {
-            return false;
+            throw new LinkedListException("Niepoprawny index");
         }
         if (index == 0) {
             removeFirst();
@@ -81,33 +82,54 @@ public class LinkedList<T> {
             removeLast();
             return true;
         } else if (index < size / 2) {
-            nodeIsHead(index);
+            addFromTheHead(index);
         } else {
-            nodeIsTail(index);
+            addFromTheTail(index);
         }
         size--;
         return true;
     }
 
-    public boolean add(T value, int position) {
+    public boolean add(T value, int position) throws LinkedListException {
         if (position < 0) {
-            return false;
+            throw new LinkedListException("Niepoprawny index");
         }
-        if (position > size - 1) {
+        if (position == size - 1) {
             addLast(value);
+            return true;
         }
         if (position == 0) {
             addFirst(value);
+            return true;
         } else if (position < size / 2) {
-            nodeIsHead(position);
+            Node<T> node = head;
+            for (int i = 0; i < position; i++) {
+                node = node.getNext();
+            }
+            Node<T> newNode = new Node<T>(value);
+            Node<T> prev = node.getPrev();
+            newNode.setNext(node);
+            newNode.setPrev(prev);
+            prev.setNext(newNode);
+            node.setPrev(newNode);
+
         } else {
-            nodeIsTail(position);
+            Node<T> node = tail;
+            for (int i = size - 1; i > position; i--) {
+                node = node.getPrev();
+            }
+            Node<T> newNode = new Node<T>(value);
+            newNode.setNext(node);
+            Node<T> prev = node.getPrev();
+            newNode.setPrev(prev);
+            prev.setNext(newNode);
+            node.setPrev(newNode);
         }
         size++;
         return true;
     }
 
-    public void nodeIsHead(int index) {
+    public void addFromTheHead(int index) {
         Node<T> node = head;
         for (int i = 0; i < index; i++) {
             node = node.getNext();
@@ -119,7 +141,7 @@ public class LinkedList<T> {
 
     }
 
-    public void nodeIsTail(int index) {
+    public void addFromTheTail(int index) {
         Node<T> node = tail;
         for (int i = size - 1; i > index; i--) {
             node = node.getPrev();
@@ -130,16 +152,24 @@ public class LinkedList<T> {
         prev.setNext(next);
     }
 
-    public Node<T> getNode(int index) {
-        if (index < 0 || index > size) {
-            return null;
-        }
-        Node<T> node = head;
-        for (int i = 0; i < index; i++) {
-            node = node.getNext();
+    public Node<T> get(int index) throws LinkedListException {
+        if (index < 0 || index > size - 1) {
+            throw new LinkedListException("Niepoprawny index");
+        } else if (index < size / 2) {
+            Node<T> node = head;
+            for (int i = 0; i < index; i++) {
+                node = node.getNext();
+            }
+        } else {
+            Node<T> node = tail;
+            for (int i = size - 1; i > index; i--) {
+                node = node.getPrev();
+            }
+
         }
         return node;
     }
+
 
     @Override
     public String toString() {
@@ -147,4 +177,6 @@ public class LinkedList<T> {
                 "head=" + head +
                 '}';
     }
+
+
 }
