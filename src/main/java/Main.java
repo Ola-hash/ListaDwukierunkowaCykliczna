@@ -1,14 +1,11 @@
 public class Main {
     public static void main(String[] args) {
         LinkedList<Integer> linkedList = new LinkedList<>();
+        linkedList.add(2, 0);
+        Node<Integer> node = linkedList.getHead();
+        linkedList.add(3, 1);
+        linkedList.add(3, 2);
 
-        linkedList.addFirst(5);
-        linkedList.addFirst(3);
-        linkedList.addFirst(2);
-        linkedList.addFirst(4);
-        linkedList.addFirst(7);
-        linkedList.remove(1);
-        System.out.println(linkedList.getHead().getData());
-        System.out.println(linkedList.getSize());
+        System.out.println(linkedList.getNode(2).getData());
     }
 }

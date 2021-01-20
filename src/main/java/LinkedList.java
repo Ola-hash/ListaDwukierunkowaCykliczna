@@ -3,6 +3,7 @@ public class LinkedList<T> {
     private Node<T> tail;
     private int size;
 
+
     public Node<T> getHead() {
         return head;
     }
@@ -115,6 +116,7 @@ public class LinkedList<T> {
         Node<T> prev = node.getPrev();
         next.setPrev(prev);
         prev.setNext(next);
+
     }
 
     public void nodeIsTail(int index) {
@@ -126,5 +128,23 @@ public class LinkedList<T> {
         Node<T> prev = node.getPrev();
         next.setPrev(prev);
         prev.setNext(next);
+    }
+
+    public Node<T> getNode(int index) {
+        if (index < 0 || index > size) {
+            return null;
+        }
+        Node<T> node = head;
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        return node;
+    }
+
+    @Override
+    public String toString() {
+        return "LinkedList{" +
+                "head=" + head +
+                '}';
     }
 }

@@ -30,4 +30,9 @@ public class Node<T> {
     public void setPrev(Node<T> prev) {
         this.prev = prev;
     }
+
+    @Override
+    public String toString() {
+        return (String) data;
+    }
 }
