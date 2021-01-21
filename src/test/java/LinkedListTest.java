@@ -5,7 +5,7 @@ public class LinkedListTest {
     LinkedList<Integer> linkedList = new LinkedList<>();
 
     @Test
-    public void shouldReturnTheCorrectFirstElement() {
+    public void shouldReturnTheCorrectFirstElement() throws LinkedListException {
 
         linkedList.addFirst(2);
         linkedList.add(3, 1);
@@ -22,7 +22,7 @@ public class LinkedListTest {
     }
 
     @Test
-    public void shouldReturn() {
+    public void shouldReturn() throws LinkedListException {
         linkedList.addFirst(4);
         linkedList.addFirst(3);
         linkedList.addFirst(5);

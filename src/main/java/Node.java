@@ -31,8 +31,4 @@ public class Node<T> {
         this.prev = prev;
     }
 
-    @Override
-    public String toString() {
-        return (String) data;
-    }
 }
