@@ -99,7 +99,7 @@ public class LinkedList<T> {
             addLast(value);
             return;
 
-        } else if (position <= size / 2) {
+        } else if (position < size / 2) {
             Node<T> node = head;
             for (int i = 0; i < position; i++) {
                 node = node.getNext();
@@ -121,7 +121,6 @@ public class LinkedList<T> {
             prev.setNext(newNode);
             newNode.setNext(node);
             node.setPrev(newNode);
-            tail = newNode;
         }
         size++;
     }
@@ -177,5 +176,20 @@ public class LinkedList<T> {
             }
             System.out.println(node.getData());
         }
+    }
+
+    public String printLinkedList() {
+        StringBuilder result = new StringBuilder();
+        if (size == 0) {
+            System.out.println("Lista jest pusta");
+        } else {
+            Node<T> node = head;
+            while (node.getNext() != head) {
+                result.append(node.getData()).append(" ");
+                node = node.getNext();
+            }
+            result.append(node.getData());
+        }
+        return result.toString();
     }
 }

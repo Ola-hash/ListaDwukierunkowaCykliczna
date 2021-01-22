@@ -6,28 +6,18 @@ public class LinkedListTest {
 
     @Test
     public void shouldReturnTheCorrectFirstElement() throws LinkedListException {
-
         linkedList.addFirst(2);
         linkedList.add(3, 1);
         linkedList.add(4, 2);
-
-        Integer expectedValue = 3;
-      //  Assert.assertEquals(expectedValue, correcttValue);
+        Integer expectedValue = linkedList.get(1).getData();
+        Integer correctValue = 3;
+        Assert.assertEquals(expectedValue, correctValue);
     }
 
     @Test
     public void shouldReturnTheCorrectSize() {
         linkedList.addFirst(2);
         Assert.assertEquals(1, linkedList.getSize());
-    }
-
-    @Test
-    public void shouldReturn() throws LinkedListException {
-        linkedList.addFirst(4);
-        linkedList.addFirst(3);
-        linkedList.addFirst(5);
-        linkedList.remove(0);
-        Assert.assertEquals(2, linkedList.getSize());
     }
 
 }

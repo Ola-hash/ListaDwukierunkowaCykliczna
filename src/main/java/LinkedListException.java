@@ -1,4 +1,4 @@
-public class LinkedListException extends Exception {
+public class LinkedListException extends RuntimeException {
     public LinkedListException(String message){
         super(message);
     }
