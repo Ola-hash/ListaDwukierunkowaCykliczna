@@ -2,8 +2,6 @@ public class LinkedList<T> {
     private Node<T> head;
     private Node<T> tail;
     private int size;
-    private Node<T> node;
-
 
     public Node<T> getHead() {
         return head;
@@ -48,9 +46,9 @@ public class LinkedList<T> {
         }
     }
 
-    public void removeFirst() {
+    public void removeFirst() throws LinkedListException {
         if (size == 0) {
-            System.out.println("Lista jest pusta");
+            throw new LinkedListException("Lista jest pusta");
         } else {
             head = head.getNext();
             tail.setNext(head);
@@ -58,9 +56,9 @@ public class LinkedList<T> {
         }
     }
 
-    public void removeLast() {
+    public void removeLast() throws LinkedListException {
         if (size == 0) {
-            System.out.println("Lista jest pusta");
+            throw new LinkedListException("Lista jest pusta");
         } else {
             tail = tail.getPrev();
             tail.setNext(head);
@@ -70,38 +68,38 @@ public class LinkedList<T> {
         }
     }
 
-    public boolean remove(int index) throws LinkedListException {
+    public void remove(int index) throws LinkedListException {
         if (index > size - 1 || index < 0) {
-            throw new LinkedListException("Niepoprawny index");
+            throw new LinkedListException(index + " - niepoprany indeks");
         }
         if (index == 0) {
             removeFirst();
-            return true;
+            return;
         }
         if (index == size - 1) {
             removeLast();
-            return true;
+            return;
         } else if (index < size / 2) {
             removeFromTheHead(index);
         } else {
             removeFromTheTail(index);
         }
         size--;
-        return true;
     }
 
     public void add(T value, int position) throws LinkedListException {
-        if (position < 0 || position > size ) {
-            throw new LinkedListException("Niepoprawny index");
-        }
-        if (position == size-1 ) {
-            addLast(value);
-            return;
+        if (position < 0 || position > size) {
+            throw new LinkedListException(position + " - niepoprawny indeks");
         }
         if (position == 0) {
             addFirst(value);
             return;
-        } else if (position <=size / 2) {
+        }
+        if (position == size) {
+            addLast(value);
+            return;
+
+        } else if (position <= size / 2) {
             Node<T> node = head;
             for (int i = 0; i < position; i++) {
                 node = node.getNext();
@@ -112,7 +110,6 @@ public class LinkedList<T> {
             prev.setNext(newNode);
             node.setPrev(newNode);
             newNode.setNext(node);
-
         } else {
             Node<T> node = tail;
             for (int i = size - 1; i > position; i--) {
@@ -124,6 +121,7 @@ public class LinkedList<T> {
             prev.setNext(newNode);
             newNode.setNext(node);
             node.setPrev(newNode);
+            tail = newNode;
         }
         size++;
     }
@@ -137,7 +135,6 @@ public class LinkedList<T> {
         Node<T> prev = node.getPrev();
         next.setPrev(prev);
         prev.setNext(next);
-
     }
 
     public void removeFromTheTail(int index) {
@@ -152,20 +149,33 @@ public class LinkedList<T> {
     }
 
     public Node<T> get(int index) throws LinkedListException {
-        if (index < 0 || index > size ) {
-            throw new LinkedListException("Niepoprawny index");
+        if (index < 0 || index > size) {
+            throw new LinkedListException(index + " - podanego indeksu nie ma w liscie");
         } else if (index <= size / 2) {
             Node<T> node = head;
             for (int i = 0; i < index; i++) {
                 node = node.getNext();
             }
+            return node;
         } else {
             Node<T> node = tail;
             for (int i = size - 1; i > index; i--) {
                 node = node.getPrev();
             }
+            return node;
         }
-        return node;
     }
 
+    public void print() {
+        if (size == 0) {
+            System.out.println("Lista jest pusta");
+        } else {
+            Node<T> node = head;
+            while (node.getNext() != head) {
+                System.out.println(node.getData());
+                node = node.getNext();
+            }
+            System.out.println(node.getData());
+        }
+    }
 }
