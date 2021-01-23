@@ -100,29 +100,37 @@ public class LinkedList<T> {
             return;
 
         } else if (position < size / 2) {
-            Node<T> node = head;
-            for (int i = 0; i < position; i++) {
-                node = node.getNext();
-            }
-            Node<T> newNode = new Node<T>(value);
-            Node<T> prev = node.getPrev();
-            newNode.setPrev(prev);
-            prev.setNext(newNode);
-            node.setPrev(newNode);
-            newNode.setNext(node);
+            addFromTheHead(value, position);
         } else {
-            Node<T> node = tail;
-            for (int i = size - 1; i > position; i--) {
-                node = node.getPrev();
-            }
-            Node<T> newNode = new Node<T>(value);
-            Node<T> prev = node.getPrev();
-            newNode.setPrev(prev);
-            prev.setNext(newNode);
-            newNode.setNext(node);
-            node.setPrev(newNode);
+            addFromTheTail(value, position);
         }
         size++;
+    }
+
+    public void addFromTheHead(T value, int position) {
+        Node<T> node = head;
+        for (int i = 0; i < position; i++) {
+            node = node.getNext();
+        }
+        Node<T> newNode = new Node<T>(value);
+        Node<T> prev = node.getPrev();
+        newNode.setPrev(prev);
+        prev.setNext(newNode);
+        node.setPrev(newNode);
+        newNode.setNext(node);
+    }
+
+    public void addFromTheTail(T value, int position) {
+        Node<T> node = tail;
+        for (int i = size - 1; i > position; i--) {
+            node = node.getPrev();
+        }
+        Node<T> newNode = new Node<T>(value);
+        Node<T> prev = node.getPrev();
+        newNode.setPrev(prev);
+        prev.setNext(newNode);
+        newNode.setNext(node);
+        node.setPrev(newNode);
     }
 
     public void removeFromTheHead(int index) {
